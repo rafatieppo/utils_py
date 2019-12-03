@@ -79,7 +79,7 @@ def main():
 # ------------------------------------------------------------
 # Add event one by one
     count = 0
-    g = open('/home/rafatieppo/Dropbox/EMACS_ORG_MODE/RAFA.ics', 'rb')
+    g = open('/home/rafatieppo/Dropbox/emacs_org_mode/rafa.ics', 'rb')
     gcal = Calendar.from_ical(g.read())
     for component in gcal.walk():
         if component.name == "VEVENT":
@@ -92,7 +92,7 @@ def main():
                      'end': {'dateTime': event_dtend}
                      }
             count = count + 1
-            print (str(count))
+            print(str(count))
             print(event)
             service.events().insert(calendarId='primary', body=event).execute()
     g.close()
