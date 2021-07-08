@@ -28,8 +28,11 @@ is peace of cake, just run `API_CAL_refresh.py`.
 
 ### From pip
 
-- `pip3 install google-api-python-client` or
+- `pip3 install --user google-api-python-client` or
 - `pip3 install --upgrade google-api-python-client`
+- `pip3 install --user oauth2client`
+- `pip3 install --user icalendar`
+
 - more information about Google API is available [Here](https://developers.google.com/api-client-library/python/start/installation) 
 
 ## Google calendar requirement
