@@ -4,21 +4,23 @@
 Google calendar and send new events from a `.ics` file. That idea is
 from a need to send my appointments from
 [EMACS](https://www.gnu.org/software/emacs/) to Google calendar. Before
-I was sending the `.ics` file by mean the Google web mail (gmail), now
-is peace of cake, just run `API_CAL_refresh.py`.
+I was sending the `.ics` file by means the Google web mail (gmail), now
+is peace of cake, just run `./api_cal_refresh.py`.
+
+## Logs
+
+### Mon 2021-09-06 15:45:37 -04
+- Some changes was made by google to access the API. The file `CLIENT_SECRET` is no more necessary. The old script was change to `api_cal_refresh_old.py`. To run the new approach just type `./api_cal_refresh.py` (*Python3 is necessary*)
 
 ## Requirement library
 
-- from __future__ import print_function
-- import httplib2
-- import os
-- from googleapiclient.discovery import build
-- from apiclient import discovery
-- from oauth2client import client
-- from oauth2client import tools
-- from oauth2client.file import Storage
-- import datetime
-- from icalendar import Calendar, Event
+from __future__ import print_function
+import datetime as dt
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 
 ### Fron conda
 
@@ -33,7 +35,12 @@ is peace of cake, just run `API_CAL_refresh.py`.
 - `pip3 install --user oauth2client`
 - `pip3 install --user icalendar`
 
-- more information about Google API is available [Here](https://developers.google.com/api-client-library/python/start/installation) 
+- more information about Google API is available:
+  - [Here](https://developers.google.com/api-client-library/python/start/installation) 
+  - [Here](https://developers.google.com/calendar/api/v3/reference/calendars/update)
+  - [Here](https://developers.google.com/calendar/api/v3/reference/events/insert)
+  - [Here](https://console.cloud.google.com/apis/credentials?folder=&organizationId=&project=coordfromaddress)
+  - [Here](https://developers.google.com/calendar/api/quickstart/python)
 
 ## Google calendar requirement
 
@@ -51,7 +58,7 @@ is peace of cake, just run `API_CAL_refresh.py`.
 
 Once the requirements are done, just
 
-`python API_CAL_refresh.py`
+`./python api_cal_refresh.py`
 
 ## Testing
 

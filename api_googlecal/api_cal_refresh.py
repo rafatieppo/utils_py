@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # ======================================================================
 # Rafael Tieppo
 # rafaeltieppo@yahoo.com.br
@@ -7,70 +9,46 @@
 # ======================================================================
 
 from __future__ import print_function
-import httplib2
-import os
-
+import datetime as dt
+import os.path
 from googleapiclient.discovery import build
-# from apiclient import discovery
-from googleapiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
-
-import datetime
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
 from icalendar import Calendar, Event
 
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
 # If modifying these scopes, delete your previously saved credentials
-# at ~/.credentials/calendar-python-quickstart.json
 # SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
 SCOPES = 'https://www.googleapis.com/auth/calendar'
-CLIENT_SECRET_FILE = '/home/rafatieppo/client_secret.json'
-APPLICATION_NAME = 'Google Calendar API Python Quickstart'
-
-
-def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
-    home_dir = os.path.expanduser('~')
-    credential_dir = os.path.join(home_dir, '.credentials')
-    if not os.path.exists(credential_dir):
-        os.makedirs(credential_dir)
-    credential_path = os.path.join(credential_dir,
-                                   'calendar-python-quickstart.json')
-
-    store = Storage(credential_path)
-    credentials = store.get()
-    if not credentials or credentials.invalid:
-        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
-        flow.user_agent = APPLICATION_NAME
-        if flags:
-            credentials = tools.run_flow(flow, store, flags)
-        else:  # Needed only for compatibility with Python 2.6
-            credentials = tools.run(flow, store)
-        print('Storing credentials to ' + credential_path)
-    return credentials
+# SCOPES = 'https://www.googleapis.com/auth/calendar.events'
+# SCOPES = 'https://www.googleapis.com/auth/admin.directory.resource.calendar'
 
 
 def main():
     """Erase all events and send a new ics file from Emacs.
-
     """
 
-    credentials = get_credentials()
-    http = credentials.authorize(httplib2.Http())
-    service = discovery.build('calendar', 'v3', http=http)
+    creds = None
+    # The file token.json stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('/home/rafatieppo/.credentials/'):
+        creds = Credentials.from_authorized_user_file(
+            '/home/rafatieppo/.credentials/token.json', SCOPES)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                '/home/rafatieppo/client_secret.json',
+                SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('/home/rafatieppo/.credentials/token.json', 'w') as token:
+            token.write(creds.to_json())
+
+    service = build('calendar', 'v3', credentials=creds)
 
 # ------------------------------------------------------------
 # Clear all events
@@ -82,20 +60,22 @@ def main():
     g = open('/home/rafatieppo/Dropbox/emacs_org_mode/rafa.ics', 'rb')
     gcal = Calendar.from_ical(g.read())
     for component in gcal.walk():
+        # print(u'', component.name)
         if component.name == "VEVENT":
-            envent_summary = (component.get('summary'))
+            # print(str(component.get('summary')))
+            envent_summary = str(component.get('summary'))
             event_dtstart = (component.get(
                 'dtstart').dt.isoformat() + '-04:00')
-            event_dtend = (component.get('dtend').dt.isoformat() + '-04:00')
-            event = {'summary': envent_summary,
+            event_dtend = (component.get(
+                'dtend').dt.isoformat() + '-04:00')
+            event = {'end': {'dateTime': event_dtend},
                      'start': {'dateTime': event_dtstart},
-                     'end': {'dateTime': event_dtend}
+                     'summary': envent_summary
                      }
             count = count + 1
-            print(str(count))
-            print(event)
-            service.events().insert(calendarId='primary', body=event).execute()
-    g.close()
+            print('# ', str(count), ' - event: ', event)
+            service.events().insert(
+                calendarId='primary', body=event).execute()
 
 
 if __name__ == '__main__':
