@@ -19,10 +19,10 @@ from icalendar import Calendar, Event
 
 # If modifying these scopes, delete your previously saved credentials
 # SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-SCOPES = 'https://www.googleapis.com/auth/calendar'
+#SCOPES = 'https://www.googleapis.com/auth/calendar'
 # SCOPES = 'https://www.googleapis.com/auth/calendar.events'
 # SCOPES = 'https://www.googleapis.com/auth/admin.directory.resource.calendar'
-
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 def main():
     """Erase all events and send a new ics file from Emacs.
