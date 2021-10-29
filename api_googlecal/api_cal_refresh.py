@@ -19,10 +19,11 @@ from icalendar import Calendar, Event
 
 # If modifying these scopes, delete your previously saved credentials
 # SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-#SCOPES = 'https://www.googleapis.com/auth/calendar'
+# SCOPES = 'https://www.googleapis.com/auth/calendar'
 # SCOPES = 'https://www.googleapis.com/auth/calendar.events'
 # SCOPES = 'https://www.googleapis.com/auth/admin.directory.resource.calendar'
 SCOPES = ['https://www.googleapis.com/auth/calendar']
+
 
 def main():
     """Erase all events and send a new ics file from Emacs.
@@ -36,7 +37,9 @@ def main():
         creds = Credentials.from_authorized_user_file(
             '/home/rafatieppo/.credentials/token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
+    if not creds or creds.valid:
+        print('There is no CREDS')
+        print(str(creds.valid))
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
