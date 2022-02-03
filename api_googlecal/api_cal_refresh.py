@@ -39,7 +39,7 @@ def main():
     # If there are no (valid) credentials available, let the user log in.
     if not creds or creds.valid:
         print('There is no CREDS')
-        print(str(creds.valid))
+        # print(str(creds.valid))
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
