@@ -9,8 +9,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-PV = 65100  # present value
-n = 24     # months
+PV = 59675  # present value
+n = 22     # months
 i = 0.8    # interest month (%)
 
 # ------------------------------------------------------------

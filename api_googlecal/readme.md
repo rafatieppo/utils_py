@@ -10,7 +10,7 @@ is peace of cake, just run `./api_cal_refresh.py`.
 ## Logs
 
 ### Mon 2021-09-06 15:45:37 -04
-- Some changes was made by google to access the API. The file `CLIENT_SECRET` is no more necessary. The old script was change to `api_cal_refresh_old.py`. To run the new approach just type `./api_cal_refresh.py` (*Python3 is necessary*)
+- Some changes was made by google to access the API. The old script was change to `api_cal_refresh_old.py`. To run the new approach just type `./api_cal_refresh.py` (*Python3 is necessary*)
 
 ## Requirement library
 
