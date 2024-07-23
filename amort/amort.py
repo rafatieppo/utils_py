@@ -61,14 +61,23 @@ def amort(PV, n, i):
         matrixprice[s, 3] = pay_price
         matrixprice[s, 4] = bal_price
 
-    # print output
-    heads = ['INTEREST', 'AMORTIZATION', 'PAYMENT']
+    # print output full table
+    heads = ['INTEREST', 'AMORTIZATION', 'PAYMENT', 'BALANCE']
     print('\n----- PRICE ------------------------')
-    b = [np.sum(matrixprice[:, 1:4], axis=0)]
+    b = matrixprice[:, 1:5]
     print(tabulate(b, headers=heads, tablefmt='markdown'))
-    a = [np.sum(matrixsac[:, 1:4], axis=0)]
+    a = matrixsac[:, 1:5]
     print('\n----- SAC --------------------------')
     print(tabulate(a, headers=heads, tablefmt='markdown'))
+
+    # print output
+    heads = ['INTEREST', 'AMORTIZATION', 'PAYMENT', 'BALANCE']
+    print('\n----- PRICE ------------------------')
+    b = [np.sum(matrixprice[:, 1:4], axis=0)]
+    print(tabulate(b, headers=heads[0:4], tablefmt='markdown'))
+    a = [np.sum(matrixsac[:, 1:4], axis=0)]
+    print('\n----- SAC --------------------------')
+    print(tabulate(a, headers=heads[0:4], tablefmt='markdown'))
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 5))
     ax1.scatter(np.arange(0, n), matrixprice[1:, 3],
@@ -80,17 +89,17 @@ def amort(PV, n, i):
     ax1.set_title('Payment')
     ax1.legend(loc='best')
 
-    r = np.arange(len(heads))
+    r = np.arange(len(heads)-1)
     w = 0.25
     ax2.bar(r, np.sum(matrixprice[:, 1:4], axis=0),
             width=w, label='PRICE', color='salmon')
     ax2.bar(r + w, np.sum(matrixsac[:, 1:4], axis=0),
             width=w, label='SAC', color='darkcyan')
-    ax2.set_xticks(r + w/2,  heads)
+    ax2.set_xticks(r + w/2,  heads[0:3])
     ax2.legend(loc='best')
     ax2.set_title('Totals')
     plt.tight_layout()
     plt.show()
 
 
-amort(189600, 96, 0.9)
+# amort(189600, 96, 0.9)
