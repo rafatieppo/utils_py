@@ -31,9 +31,13 @@ def app_lottery(n, vmin, vmax):
             filter_num = lambda numb1: numb1 == numbers[idz]
             check_equal_all += len(list(filter(filter_num, numbers)))
         # print('Checl ALL is: {}'.format(check_equal_all))
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
     print(numbers)
+    print('------------------------------------------------------------')
+    print('------------------------------------------------------------')
     return numbers
-
+#------------------------------------------------------------
 
 n = int(input('\nType the amount random mumbers: '))
 vmin = int(input('\nType the minimal value: '))
