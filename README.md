@@ -15,6 +15,10 @@ Google calendar and send new events from a `.ics` file.
 
 `lottery.py` generate integer random numbers for a range.
 
+## POLAR SELENIUM DOWNLOAD
+
+`polar_selenium_dowload_activ.py` automation to download activities from Polar Flow by means Selenium
+
 ## About
 
 Feel free to use and spread it.

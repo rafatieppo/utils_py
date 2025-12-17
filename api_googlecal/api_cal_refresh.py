@@ -44,7 +44,7 @@ def main():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                '/home/rafatieppo/client_secret_ud.json',
+                '/home/rafatieppo/client_secret.json',
                 SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -60,7 +60,7 @@ def main():
 # ------------------------------------------------------------
 # Add event one by one
     count = 0
-    g = open('/home/rafatieppo/Dropbox/emacs_org_mode/rafa_tieppo.ics', 'rb')
+    g = open('/home/rafatieppo/Gdrive/emacs_org_mode/rafa_tieppo.ics', 'rb')
     gcal = Calendar.from_ical(g.read())
     for component in gcal.walk():
         # print(u'', component.name)

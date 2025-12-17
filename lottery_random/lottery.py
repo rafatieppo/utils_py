@@ -1,46 +1,46 @@
 #!/usr/bin/env python3
 
-"""Generate integer numbers randomly."""
+"""Generate random lottery numbers."""
 
-import numpy as np
+import random
 
 
-def app_lottery(n, vmin, vmax):
+def app_lottery(games, n, vmin, vmax):
     """
-    Generate integer numbers randomly.
+    Generate random lottery numbers.
 
     Parameters:
-    n (int): amount of random numbers.
-    vmin (int): minimal value value for a random number.
-    vmax (int): max value value for a random number.
+    games (int): Number of games/cards to generate.
+    n (int): Number of random numbers per game.
+    vmin (int): Minimum value for random numbers.
+    vmax (int): Maximum value for random numbers.
+    
+    Returns:
+    list: A list of generated games, where each game is a list of unique random numbers.
     """
-    numbers = list(np.random.randint(vmin, vmax, n))
-    # print('\nFirst list of numbers: {}'.format(sorted(numbers)))
-    check_equal_all = 0
-    while check_equal_all != n:
-        for idx in range(len(numbers)):
-            check_equal = 0
-            for idy in range(len(numbers)):
-                if numbers[idx] == numbers[idy]:
-                    check_equal += 1
-                    if check_equal > 1:
-                        replace_num = np.random.randint(vmin, vmax, 1)[0]
-                        numbers[idy] = replace_num
-        numbers = sorted(numbers)
-        for idz in range(len(numbers)):
-            filter_num = lambda numb1: numb1 == numbers[idz]
-            check_equal_all += len(list(filter(filter_num, numbers)))
-        # print('Checl ALL is: {}'.format(check_equal_all))
-    print('------------------------------------------------------------')
-    print('------------------------------------------------------------')
-    print(numbers)
-    print('------------------------------------------------------------')
-    print('------------------------------------------------------------')
-    return numbers
-#------------------------------------------------------------
+    if vmax - vmin + 1 < n:
+        raise ValueError("The range of values (vmax - vmin) must be at least as large as 'n'.")
 
-n = int(input('\nType the amount random mumbers: '))
-vmin = int(input('\nType the minimal value: '))
-vmax = int(input('\nType the max value: '))
+    all_games = []
+    for i in range(1, games + 1):
+        game = sorted(random.sample(range(vmin, vmax + 1), n))  # Ensure unique and sorted numbers
+        all_games.append(game)
+        print(f"Game {i}: {game}")
+    
+    print("------------------------------------------------------------")
+    return all_games
 
-app_lottery(n, vmin, vmax)
+
+if __name__ == "__main__":
+    try:
+        games = int(input("Enter the number of games to generate: "))
+        n = int(input("Enter the number of unique numbers per game: "))
+        vmin = int(input("Enter the minimum possible value: "))
+        vmax = int(input("Enter the maximum possible value: "))
+
+        app_lottery(games, n, vmin, vmax)
+
+    except ValueError as e:
+        print(f"Input error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
