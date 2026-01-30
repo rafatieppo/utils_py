@@ -11,6 +11,23 @@ It is a **Python** script (or function) collection to make the usual tasks easie
 `API_CAL_refresh.py` is a script in **Python** to clear **all** events in
 Google calendar and send new events from a `.ics` file.
 
+
+## get_text_coord_from_img
+
+This Python script extracts text from images using OCR (Optical Character Recognition) and parses Latitude and Longitude coordinates using Regular Expressions.
+
+- Prerequisites
+
+You need **Tesseract OCR** installed on your system (not just the Python library).
+
+- Installation
+
+Install the required Python packages in the **ENVIRONMENT**:
+
+```bash
+conda install pillow pytesseract tesseract
+```
+
 ## LOTERY
 
 `lottery.py` generate integer random numbers for a range.
