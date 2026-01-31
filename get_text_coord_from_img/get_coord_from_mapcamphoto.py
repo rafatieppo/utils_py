@@ -1,10 +1,12 @@
-import json
+"Extracts text from image."
+
 import numpy as np
-import cv2
-import pathlib
-import pytesseract
-from PIL import Image
+import json
 import re
+import cv2
+import pytesseract
+# import pathlib
+# from PIL import Image
 
 
 def get_coord_from_mapcamphoto(file_path):

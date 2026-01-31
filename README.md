@@ -17,13 +17,17 @@ Google calendar and send new events from a `.ics` file.
 This Python script extracts text from images using OCR (Optical Character Recognition) and parses Latitude and Longitude coordinates using Regular Expressions.
 
 - Prerequisites
-  - You need **Tesseract OCR** installed on your system (not just the Python library).
+  - You need **Tesseract OCR** and **CV2** installed on pyhton ENVIRONMET
 
 - Installation
   - Install the required Python packages in the **ENVIRONMENT**:
 
+If use conda:
+
 ```bash
-conda install pillow pytesseract tesseract
+conda install pytesseract tesseract
+
+conda install conda-forge::opencv
 ```
 
 - How to use in terminal
