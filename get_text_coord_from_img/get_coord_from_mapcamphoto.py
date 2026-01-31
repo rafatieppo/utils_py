@@ -6,22 +6,18 @@ import pytesseract
 from PIL import Image
 import re
 
-# You need to have Tesseract-OCR installed on your system for this to work.
-# Also, install the required Python packages: pip install pytesseract Pillow
 
-
-def extract_text_and_coordinates(file_path):
+def get_coord_from_mapcamphoto(file_path):
     """
-    Extracts text from an image and attempts to find Latitude and Longitude coordinates.
+    Extracts text from an image and attempts to find Lat and Long.
     """
     try:
         # Open the image file
         # 1. Load the image
-        file_path = file_path
         img = cv2.imread(file_path)
         if img is None:
             print("Error: Could not load image.")
-            return
+            return None
 
         # 2. Upscale
         # Making the image larger helps separate letters that are close together.
@@ -106,6 +102,7 @@ def extract_text_and_coordinates(file_path):
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        return None
 
 # Replace 'your_image.jpg' with the actual path to your image file.
 # For the provided image, it would be something like:
@@ -115,13 +112,13 @@ def extract_text_and_coordinates(file_path):
 # ------------------------------------------------------------
 
 
-file_path = './nao_certo.jpg'
-extract_text_and_coordinates(file_path)
+# file_path = './nao_certo.jpg'
+# extract_text_and_coordinates(file_path)
 
 
-lsimgs = pathlib.Path('./').glob('*.jpg')
-for idx, f in enumerate(lsimgs):
-    print('------------------------------------')
-    print(f'{idx} -----> {f}')
-    extract_text_and_coordinates(f)
-    print('------------------------------------')
+# lsimgs = pathlib.Path('./').glob('*.jpg')
+# for idx, f in enumerate(lsimgs):
+#     print('------------------------------------')
+#     print(f'{idx} -----> {f}')
+#     extract_text_and_coordinates(f)
+#     print('------------------------------------')
