@@ -60,7 +60,7 @@ def main():
 # ------------------------------------------------------------
 # Add event one by one
     count = 0
-    g = open('/home/rafatieppo/Gdrive/emacs_org_mode/rafa_tieppo.ics', 'rb')
+    g = open('/mnt/c/Users/rafat/Gdrive/emacs_org_mode/rafa_tieppo.ics', 'rb')
     gcal = Calendar.from_ical(g.read())
     for component in gcal.walk():
         # print(u'', component.name)
