@@ -22,11 +22,15 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 
-### Fron conda
+### From conda
 
 `conda install -c conda-forge httplib2`
 `conda install -c conda-forge google-api-python-client`
 `conda install -c conda-forge httplib2`
+
+if get some error:
+
+`conda update -c conda-forge pyopenssl cryptography`
 
 ### From pip
 
